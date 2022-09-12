@@ -94,7 +94,7 @@ pipeline {
                                               
            }
        }
-        stage('SonarQube Analysis report') }
+        stage('SonarQube Analysis report') {
             steps {
                     sh 'mvn sonar:sonar Dsonar.projectKey=sonarqube -Dsonar.host.url=http://192.168.80.128:9000 -Dsonar.login=987d0f39389debc95575be309ec471397b902dd6'
             }
