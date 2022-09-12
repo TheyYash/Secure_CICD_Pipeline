@@ -59,32 +59,32 @@ pipeline {
             }
         }
        
-       // stage('SCA') {
-       //     parallel {
-       //         stage('Dependency Check') {
-       //             steps {
-       //                 sh 'wget https://github.com/RaziAbbas1/Devsecops/blob/master/dc.sh'
-       //                 sh 'chmod +x dc.sh'
-       //                 sh './dc.sh'
-       //                 archiveArtifacts artifacts: 'odc-reports/*.html', onlyIfSuccessful: true
-       //                 archiveArtifacts artifacts: 'odc-reports/*.csv', onlyIfSuccessful: true
-       //                 archiveArtifacts artifacts: 'odc-reports/*.json', onlyIfSuccessful: true
-     //                   emailext attachLog: true, attachmentsPattern: '*.html', 
-     //                   body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}\n Please Find Attachments for the following:\n Thankyou\n CDAC-Project Group-7",
-     //                   subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - success", mimeType: 'text/html', to: "abbyvishnoi@gmail.com"
-       //             }
-       //         }
-       //         stage('Junit Testing') {
-       //             steps {
-       //                 sh 'echo "Junit Reports are created using archiveArtifacts"'
-       //                 archiveArtifacts artifacts: '*junit.xml', onlyIfSuccessful: true
-                   //     emailext attachLog: true, attachmentsPattern: '*junit.xml', 
-                    //    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}\n Please Find Attachments for the following:\n Thankyou\n CDAC-Project Group-7",
-                   //     subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - success", mimeType: 'text/html', to: "abbyvishnoi@gmail.com"
-        //            }
-        //        }
-        //    }
-    //    }
+        stage('SCA') {
+            parallel {
+                stage('Dependency Check') {
+                    steps {
+                        sh 'wget https://github.com/RaziAbbas1/Devsecops/blob/master/dc.sh'
+                        sh 'chmod +x dc.sh'
+                        sh './dc.sh'
+                        archiveArtifacts artifacts: 'odc-reports/*.html', onlyIfSuccessful: true
+                        archiveArtifacts artifacts: 'odc-reports/*.csv', onlyIfSuccessful: true
+                        archiveArtifacts artifacts: 'odc-reports/*.json', onlyIfSuccessful: true
+                        emailext attachLog: true, attachmentsPattern: '*.html', 
+                        body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}\n Please Find Attachments for the following:\n Thankyou\n CDAC-Project Group-7",
+                        subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - success", mimeType: 'text/html', to: "abbyvishnoi@gmail.com"
+                    }
+                }
+                stage('Junit Testing') {
+                    steps {
+                        sh 'echo "Junit Reports are created using archiveArtifacts"'
+                        archiveArtifacts artifacts: '*junit.xml', onlyIfSuccessful: true
+                        emailext attachLog: true, attachmentsPattern: '*junit.xml', 
+                        body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}\n Please Find Attachments for the following:\n Thankyou\n CDAC-Project Group-7",
+                        subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - success", mimeType: 'text/html', to: "abbyvishnoi@gmail.com"
+                    }
+                }
+            }
+        }
            stage('SonarQube Analysis') {
              steps {
                   sh 'docker container stop sonarqube || true'
@@ -94,11 +94,11 @@ pipeline {
                                               
            }
        }
-        //stage('SonarQube Analysis report') {
-        //    steps {
-        //            sh 'mvn sonar:sonar Dsonar.projectKey=sonarqube -Dsonar.host.url=http://192.168.80.128:9000 -Dsonar.login=99eff6549cfb87f043869711c08471036fbbcc21'
-        //    }
-      //  }
+        stage('SonarQube Analysis report') {
+            steps {
+                    sh 'mvn sonar:sonar Dsonar.projectKey=sonarqube -Dsonar.host.url=http://192.168.80.128:9000 -Dsonar.login=99eff6549cfb87f043869711c08471036fbbcc21'
+            }
+        }
                stage('Build Docker Images') {
                      steps {
                           sh 'docker build -t $JOB_NAME:v1.$BUILD_ID .'
