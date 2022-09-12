@@ -66,6 +66,7 @@ pipeline {
                         sh 'wget https://github.com/RaziAbbas1/Devsecops/blob/master/dc.sh'
                         sh 'chmod +x dc.sh'
                         sh './dc.sh'
+                        sh 'chmod +x odc-reports'
                         archiveArtifacts artifacts: 'odc-reports/*.html', onlyIfSuccessful: true
                         archiveArtifacts artifacts: 'odc-reports/*.csv', onlyIfSuccessful: true
                         archiveArtifacts artifacts: 'odc-reports/*.json', onlyIfSuccessful: true
