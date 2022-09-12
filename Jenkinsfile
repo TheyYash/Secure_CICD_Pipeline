@@ -91,7 +91,7 @@ pipeline {
           //        sh 'docker container stop sonarqube || true'
          //         sh 'docker container rm -f sonarqube || true'
         //          sh 'docker run -p 9000:9000 -d --name sonarqube owasp/sonarqube'
-                 withSonarQubeEnv('soanr') {
+                 withSonarQubeEnv('sonar') {
                      sh 'mvn sonar:sonar'
                      sh 'cat /var/lib/jenkins/workspace/sonarqube_report.txt'
                                               
