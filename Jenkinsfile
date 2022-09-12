@@ -51,13 +51,13 @@ pipeline {
                   }
               }
         }
-        stage('Build Stage') {
-            steps {
-                sh 'mvn clean'
-                sh 'mvn compile'
-                sh 'mvn package'
-            }
-        }
+    //    stage('Build Stage') {
+  //          steps {
+  //              sh 'mvn clean'
+    //            sh 'mvn compile'
+  //             sh 'mvn package'
+  //          }
+  //      }
        
         stage('SCA') {
             parallel {
@@ -88,16 +88,26 @@ pipeline {
         }
            stage('SonarQube Analysis') {
              steps {
-                  sh 'docker container stop sonarqube || true'
-                  sh 'docker container rm -f sonarqube || true'
-                  sh 'docker run -p 9000:9000 -d --name sonarqube owasp/sonarqube'
-                  sh 'mvn sonar:sonar Dsonar.projectKey=sonarqube -Dsonar.host.url=http://192.168.80.128:9000 -Dsonar.login=987d0f39389debc95575be309ec471397b902dd6'
+          //        sh 'docker container stop sonarqube || true'
+         //         sh 'docker container rm -f sonarqube || true'
+        //          sh 'docker run -p 9000:9000 -d --name sonarqube owasp/sonarqube'
+                 withSonarQubeEnv('soanr') {
+                     sh 'mvn sonar:sonar'
+                     sh 'cat /var/lib/jenkins/workspace/sonarqube_report.txt'
                                               
-           }
-       }
-        stage('SonarQube Analysis report') {
+         }
+      }
+    }
+      //  stage('SonarQube Analysis report') {
+        //    steps {
+        //            sh 'mvn sonar:sonar Dsonar.projectKey=sonarqube -Dsonar.host.url=http://192.168.80.128:9000 -Dsonar.login=99eff6549cfb87f043869711c08471036fbbcc21'
+       //     }
+     //   }
+         stage('Build Stage') {
             steps {
-                    sh 'mvn sonar:sonar Dsonar.projectKey=sonarqube -Dsonar.host.url=http://192.168.80.128:9000 -Dsonar.login=99eff6549cfb87f043869711c08471036fbbcc21'
+                sh 'mvn clean'
+                sh 'mvn compile'
+                sh 'mvn package'
             }
         }
                stage('Build Docker Images') {
