@@ -47,8 +47,8 @@ pipeline {
       //                  emailext attachLog: true, attachmentsPattern: '*.json', 
      //                   body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}\n Please Find Attachments for the following:\n Thankyou\n CDAC-Project Group-7",
      //                   subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - success", mimeType: 'text/html', to: "abbyvishnoi@gmail.com"
-                    }
-                }
+      //              }
+      //          }
             }
         }
         stage('Build Stage') {
