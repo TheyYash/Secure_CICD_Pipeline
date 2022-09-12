@@ -30,25 +30,25 @@ pipeline {
                        // subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME} - success", mimeType: 'text/html', to: "raziabbasrizvi75@gmail.com"
                     }
                 }
-                //stage('Image Security') {
-                    //steps {
-                      //  sh 'cd $WORKSPACE'
-                      //  sh 'dockle --input ~/docker_img_backup/mytomcat.tar -f json -o mytomcat_report.json'
-                      //  sh 'cat mytomcat_report.json | jq {summary}'
-                      //  sh 'dockle --input ~/docker_img_backup/pgadmin4.tar -f json -o pgadmin4_report.json'
-                      //  sh 'cat pgadmin4_report.json | jq {summary}'
-                      //  sh 'dockle --input ~/docker_img_backup/postgres11.tar -f json -o postgres11_report.json'
-                      //  sh 'cat postgres11_report.json | jq {summary}'
-                      //  sh 'dockle --input ~/docker_img_backup/zap2docker.tar -f json -o zap2docker-stable_report.json'
-                      //  sh 'cat zap2docker-stable_report.json | jq {summary}'
-                      //  sh 'dockle --input ~/docker_img_backup/sonarqube.tar -f json -o sonarqube_report.json'
-                      //  sh 'cat sonarqube_report.json | jq {summary}'
-                      //  archiveArtifacts artifacts: '*.json', onlyIfSuccessful: true
+                stage('Image Security') {
+                    steps {
+                        sh 'cd $WORKSPACE'
+                        sh 'dockle --input ~/docker_img_backup/mytomcat.tar -f json -o mytomcat_report.json'
+                        sh 'cat mytomcat_report.json | jq {summary}'
+                        sh 'dockle --input ~/docker_img_backup/pgadmin4.tar -f json -o pgadmin4_report.json'
+                        sh 'cat pgadmin4_report.json | jq {summary}'
+                        sh 'dockle --input ~/docker_img_backup/postgres11.tar -f json -o postgres11_report.json'
+                        sh 'cat postgres11_report.json | jq {summary}'
+                        sh 'dockle --input ~/docker_img_backup/zap2docker.tar -f json -o zap2docker-stable_report.json'
+                        sh 'cat zap2docker-stable_report.json | jq {summary}'
+                        sh 'dockle --input ~/docker_img_backup/sonarqube.tar -f json -o sonarqube_report.json'
+                        sh 'cat sonarqube_report.json | jq {summary}'
+                        archiveArtifacts artifacts: '*.json', onlyIfSuccessful: true
       //                  emailext attachLog: true, attachmentsPattern: '*.json', 
      //                   body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}\n Please Find Attachments for the following:\n Thankyou\n CDAC-Project Group-7",
      //                   subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - success", mimeType: 'text/html', to: "abbyvishnoi@gmail.com"
-                  //  }
-              //  }
+                     }
+                  }
               }
         }
         stage('Build Stage') {
@@ -90,15 +90,15 @@ pipeline {
                   sh 'docker container stop sonarqube || true'
                   sh 'docker container rm -f sonarqube || true'
                   sh 'docker run -p 9000:9000 -d --name sonarqube owasp/sonarqube'
-                //  sh 'mvn sonar:sonar Dsonar.projectKey=sonarqube -Dsonar.host.url=http://192.168.80.128:9000 -Dsonar.login=987d0f39389debc95575be309ec471397b902dd6'
+                  sh 'mvn sonar:sonar Dsonar.projectKey=sonarqube -Dsonar.host.url=http://192.168.80.128:9000 -Dsonar.login=987d0f39389debc95575be309ec471397b902dd6'
                                               
            }
        }
-        stage('SonarQube Analysis report') {
-            steps {
-                    sh 'mvn sonar:sonar Dsonar.projectKey=sonarqube -Dsonar.host.url=http://192.168.80.128:9000 -Dsonar.login=99eff6549cfb87f043869711c08471036fbbcc21'
-            }
-        }
+        //stage('SonarQube Analysis report') {
+        //    steps {
+        //            sh 'mvn sonar:sonar Dsonar.projectKey=sonarqube -Dsonar.host.url=http://192.168.80.128:9000 -Dsonar.login=99eff6549cfb87f043869711c08471036fbbcc21'
+        //    }
+      //  }
                stage('Build Docker Images') {
                      steps {
                           sh 'docker build -t $JOB_NAME:v1.$BUILD_ID .'
