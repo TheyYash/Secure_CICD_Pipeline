@@ -118,26 +118,26 @@ pipeline {
                   
               }
         }
-       stage('Push Image To Docker Hub') { 
+       //stage('Push Image To Docker Hub') { 
              steps {
                    //        withCredentials([string(credentialsId: 'Akku@12345', variable: 'Akku@12345')]) {
                    //        sh 'docker login -u nani123456789 -p ${Akku@12345}'
               // }
-                           sh 'docker image push nani123456789/$JOB_NAME:v1.$BUILD_ID'
-                           sh 'docker image push nani123456789/$JOB_NAME:latest'
-                           sh 'docker rmi $JOB_NAME:v1.$BUILD_ID nani123456789/$JOB_NAME:v1.$BUILD_ID nani123456789/$JOB_NAME:latest'
-                   }
-               }    
+                          // sh 'docker image push nani123456789/$JOB_NAME:v1.$BUILD_ID'
+                          // sh 'docker image push nani123456789/$JOB_NAME:latest'
+                          // sh 'docker rmi $JOB_NAME:v1.$BUILD_ID nani123456789/$JOB_NAME:v1.$BUILD_ID nani123456789/$JOB_NAME:latest'
+         //          }
+         //      }    
             stage('Deploying Containers') {
                   steps {  
                         script {
                            def dockerrun = 'docker run -p 8080:8080 -d --name Devsecops nani123456789/$JOB_NAME:latest'
                            def dockerrm = 'docker container rm -f Devsecops'
                            def dockerimg = 'docker rmi nani123456789/$JOB_NAME'
-                           sshagent(['docker_Server']) {                     
-                           sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.3.168 ${dockerrm} || true"
-                           sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.3.168 ${dockerimg} || true"
-                           sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.3.168 ${dockerrun}"
+            //               sshagent(['docker_Server']) {                     
+           //                sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.3.168 ${dockerrm} || true"
+           //                sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.3.168 ${dockerimg} || true"
+           //                sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.3.168 ${dockerrun}"
                        }     
                   }
                 }   
