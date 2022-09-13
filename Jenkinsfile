@@ -119,7 +119,7 @@ pipeline {
               }
         }
        //stage('Push Image To Docker Hub') { 
-             steps {
+          //   steps {
                    //        withCredentials([string(credentialsId: 'Akku@12345', variable: 'Akku@12345')]) {
                    //        sh 'docker login -u nani123456789 -p ${Akku@12345}'
               // }
