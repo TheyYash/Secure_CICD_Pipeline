@@ -132,8 +132,8 @@ pipeline {
                   steps {  
                         script {
                            def dockerrun = 'docker run -p 8080:8080 -d --name Devsecops nani123456789/$JOB_NAME:latest'
-                           def dockerrm = 'docker container rm -f Devsecops'
-                           def dockerimg = 'docker rmi nani123456789/$JOB_NAME'
+         //                  def dockerrm = 'docker container rm -f Devsecops'
+         //                  def dockerimg = 'docker rmi nani123456789/$JOB_NAME'
             //               sshagent(['docker_Server']) {                     
            //                sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.3.168 ${dockerrm} || true"
            //                sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.3.168 ${dockerimg} || true"
@@ -146,8 +146,8 @@ pipeline {
              steps {
                 sh 'docker rm dast_baseline || true'
                 sh 'docker rm dast_full || true'
-                sh 'docker run --name dast_full --network project_project -t owasp/zap2docker-stable zap-full-scan.py -t http://13.234.213.199/LoginWebApp/ || true'
-                sh 'docker run --name dast_baseline --network project_project -t owasp/zap2docker-stable zap-baseline.py -t http://13.234.213.199/LoginWebApp/ --autooff || true'
+                sh 'docker run --name dast_full --network project_project -t owasp/zap2docker-stable zap-full-scan.py -t http://192.168.80.128/LoginWebApp/ || true'
+                sh 'docker run --name dast_baseline --network project_project -t owasp/zap2docker-stable zap-baseline.py -t http://192.168.80.128/LoginWebApp/ --autooff || true'
              }
         }
     }
