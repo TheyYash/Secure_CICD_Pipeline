@@ -138,7 +138,7 @@ pipeline {
            //                sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.3.168 ${dockerrm} || true"
            //                sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.3.168 ${dockerimg} || true"
            //                sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.3.168 ${dockerrun}"
-                       }     
+           //            }     
                   }
                 }   
             }
