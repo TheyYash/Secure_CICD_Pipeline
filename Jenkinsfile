@@ -113,8 +113,8 @@ pipeline {
                stage('Build Docker Images') {
                      steps {
                           sh 'docker build -t $JOB_NAME:v1.$BUILD_ID .'
-                          sh 'docker image tag $JOB_NAME:v1.$BUILD_ID raziabbas1996/$JOB_NAME:v1.$BUILD_ID'
-                          sh 'docker image tag $JOB_NAME:v1.$BUILD_ID raziabbas1996/$JOB_NAME:latest'
+                          sh 'docker image tag $JOB_NAME:v1.$BUILD_ID nani123456789/$JOB_NAME:v1.$BUILD_ID'
+                          sh 'docker image tag $JOB_NAME:v1.$BUILD_ID nani123456789/$JOB_NAME:latest'
                   
               }
         }
@@ -123,17 +123,17 @@ pipeline {
                    //        withCredentials([string(credentialsId: 'Akku@12345', variable: 'Akku@12345')]) {
                    //        sh 'docker login -u nani123456789 -p ${Akku@12345}'
               // }
-                           sh 'docker image push raziabbas1996/$JOB_NAME:v1.$BUILD_ID'
-                           sh 'docker image push raziabbas1996/$JOB_NAME:latest'
-                           sh 'docker rmi $JOB_NAME:v1.$BUILD_ID raziabbas1996/$JOB_NAME:v1.$BUILD_ID raziabbas1996/$JOB_NAME:latest'
+                           sh 'docker image push nani123456789/$JOB_NAME:v1.$BUILD_ID'
+                           sh 'docker image push nani123456789/$JOB_NAME:latest'
+                           sh 'docker rmi $JOB_NAME:v1.$BUILD_ID nani123456789/$JOB_NAME:v1.$BUILD_ID nani123456789/$JOB_NAME:latest'
                    }
                }    
             stage('Deploying Containers') {
                   steps {  
                         script {
-                           def dockerrun = 'docker run -p 8080:8080 -d --name Devsecops raziabbas1996/$JOB_NAME:latest'
+                           def dockerrun = 'docker run -p 8080:8080 -d --name Devsecops nani123456789/$JOB_NAME:latest'
                            def dockerrm = 'docker container rm -f Devsecops'
-                           def dockerimg = 'docker rmi raziabbas1996/$JOB_NAME'
+                           def dockerimg = 'docker rmi nani123456789/$JOB_NAME'
                            sshagent(['docker_Server']) {                     
                            sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.3.168 ${dockerrm} || true"
                            sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.3.168 ${dockerimg} || true"
