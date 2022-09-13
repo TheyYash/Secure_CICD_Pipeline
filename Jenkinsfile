@@ -120,9 +120,9 @@ pipeline {
         }
        stage('Push Image To Docker Hub') { 
              steps {
-                           withCredentials([string(credentialsId: 'Akku@12345', variable: 'Akku@12345')]) {
-                           sh 'docker login -u nani123456789 -p ${Akku@12345}'
-               }
+                   //        withCredentials([string(credentialsId: 'Akku@12345', variable: 'Akku@12345')]) {
+                   //        sh 'docker login -u nani123456789 -p ${Akku@12345}'
+              // }
                            sh 'docker image push raziabbas1996/$JOB_NAME:v1.$BUILD_ID'
                            sh 'docker image push raziabbas1996/$JOB_NAME:latest'
                            sh 'docker rmi $JOB_NAME:v1.$BUILD_ID raziabbas1996/$JOB_NAME:v1.$BUILD_ID raziabbas1996/$JOB_NAME:latest'
