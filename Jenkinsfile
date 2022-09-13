@@ -131,7 +131,7 @@ pipeline {
             stage('Deploying Containers') {
                   steps {  
                         script {
-                           def dockerrun = 'docker run -p 8080:8080 -d --name Devsecops nani123456789/$JOB_NAME:latest'
+                           sh 'docker run -p 5000:5000 -d nani123456789/$JOB_NAME:latest'
          //                  def dockerrm = 'docker container rm -f Devsecops'
          //                  def dockerimg = 'docker rmi nani123456789/$JOB_NAME'
             //               sshagent(['docker_Server']) {                     
