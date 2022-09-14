@@ -12,7 +12,7 @@ pipeline {
                 sh 'cd $WORKSPACE'
                 sh 'rm -rf project'
                 git branch: "master",
-                    url: "https://github.com/RaziAbbas1/Devsecops.git"
+                    url: "https://github.com/TheyYash/Secure_CICD_Pipeline.git"
                 sh 'ls'
             }
         }
@@ -63,7 +63,7 @@ pipeline {
             parallel {
                 stage('Dependency Check') {
                     steps {
-                        sh 'wget https://github.com/RaziAbbas1/Devsecops/blob/master/dc.sh'
+                        sh 'wget https://github.com/TheyYash/Secure_CICD_Pipeline/blob/master/dc.sh'
                         sh 'chmod +x dc.sh'
                         sh './dc.sh'
                         sh 'chmod +x odc-reports'
