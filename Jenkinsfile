@@ -66,7 +66,7 @@ pipeline {
                         sh 'wget https://github.com/TheyYash/Secure_CICD_Pipeline/blob/master/dc.sh'
                         sh 'chmod +x dc.sh'
                         sh './dc.sh'
-                        sh 'chmod +x odc-reports'
+                        //sh 'chmod +x odc-reports'
                         archiveArtifacts artifacts: 'odc-reports/*.html', onlyIfSuccessful: true
                         archiveArtifacts artifacts: 'odc-reports/*.csv', onlyIfSuccessful: true
                         archiveArtifacts artifacts: 'odc-reports/*.json', onlyIfSuccessful: true
@@ -88,9 +88,9 @@ pipeline {
         }
            stage('SonarQube Analysis') {
              steps {
-                  sh 'docker container stop sonarqube || true'
-                  sh 'docker container rm -f sonarqube || true'
-                  sh 'docker run -p 9000:9000 -d --name sonarqube owasp/sonarqube'
+                 // sh 'docker container stop sonarqube || true'
+                 // sh 'docker container rm -f sonarqube || true'
+                 // sh 'docker run -p 9000:9000 -d --name sonarqube owasp/sonarqube'
                  withSonarQubeEnv('sonar') {
                      sh 'mvn sonar:sonar'
                  //    sh 'cat /var/lib/jenkins/workspace/sonarqube_report.txt'
