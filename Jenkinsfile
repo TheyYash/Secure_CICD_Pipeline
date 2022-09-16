@@ -81,18 +81,18 @@ pipeline {
                         archiveArtifacts artifacts: '*junit.xml', onlyIfSuccessful: true
                         emailext attachLog: true, attachmentsPattern: '*junit.xml', 
                         body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}\n Please Find Attachments for the following:\n Thankyou\n CDAC-Project Group-7",
-                        subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - success", mimeType: 'text/html', to: "abbyvishnoi@gmail.com"
+                        subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - success", mimeType: 'text/html', to: "sharmayash0002@gmail.com"
                     }
                 }
             }
         }
-           stage('SonarQube Analysis') {
-             steps {
+          // stage('SonarQube Analysis') {
+          //   steps {
                  // sh 'docker container stop sonarqube || true'
                  // sh 'docker container rm -f sonarqube || true'
                  // sh 'docker run -p 9000:9000 -d --name sonarqube owasp/sonarqube'
-                 withSonarQubeEnv('sonar') {
-                     sh 'mvn sonar:sonar'
+           //      withSonarQubeEnv('sonar') {
+           //          sh 'mvn sonar:sonar'
                  //    sh 'cat /var/lib/jenkins/workspace/sonarqube_report.txt'
                                               
          }
