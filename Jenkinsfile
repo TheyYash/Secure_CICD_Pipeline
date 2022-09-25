@@ -138,6 +138,7 @@ pipeline {
                           sshagent(['docker_Server']) {                     
                         //   sh "ssh -o StrictHostKeyChecking=no yash@192.168.80.137 ${dockerrm} || true"
                         //   sh "ssh -o StrictHostKeyChecking=no yash@192.168.80.137 ${dockerimg} || true"
+                           sh "ssh -o StrictHostKeyChecking=no yash@192.168.80.140 docker pull nani123456789/pipeline"
                            sh "ssh -o StrictHostKeyChecking=no yash@192.168.80.140 ${dockerrun}"
                        }     
                   }
