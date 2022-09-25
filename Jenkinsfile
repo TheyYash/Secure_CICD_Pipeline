@@ -72,7 +72,7 @@ pipeline {
                         archiveArtifacts artifacts: 'odc-reports/*.json', onlyIfSuccessful: true
                         emailext attachLog: true, attachmentsPattern: '*.html', 
                         body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}\n Please Find Attachments for the following:\n Thankyou\n CDAC-Project Group-7",
-                        subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - success", mimeType: 'text/html', to: "abbyvishnoi@gmail.com"
+                        subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - success", mimeType: 'text/html', to: "daddu1017@gmail.com"
                     }
                 }
                 stage('Junit Testing') {
@@ -136,7 +136,7 @@ pipeline {
                         //   def dockerrun = 'sudo docker run -p 8080:8080 -d nani123456789/$JOB_NAME:latest'
                         //   def dockerrm = 'docker container rm -f Devsecops'
                         //   def dockerimg = 'docker rmi nani123456789/$JOB_NAME'
-                          sshagent(['dockerserver']) {
+                           sshagent(['dockerserver']) {
                            sh 'ssh -o StrictHostKeyChecking=no root@192.168.80.140 sudo docker pull nani123456789/pipeline'
                            sh 'ssh -o StrictHostKeyChecking=no root@192.168.80.140 sudo docker run -p 8080:8080 -d nani123456789/$JOB_NAME:latest'
                         //   sh "ssh -o StrictHostKeyChecking=no yash@192.168.80.137 ${dockerrm} || true"
