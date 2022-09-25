@@ -91,11 +91,11 @@ pipeline {
                  // sh 'docker container stop sonarqube || true'
                  // sh 'docker container rm -f sonarqube || true'
                  // sh 'docker run -p 9000:9000 -d --name sonarqube owasp/sonarqube'
-                 sshagent(['dockerserver']) {
+                // sshagent(['dockerserver']) {
                  withSonarQubeEnv('sonar') {
-                     sh 'ssh -o StrictHostKeyChecking=no yash@192.168.80.140 mvn sonar:sonar'
+                     sh 'mvn sonar:sonar'
                  //    sh 'cat /var/lib/jenkins/workspace/sonarqube_report.txt'
-                 }                      
+                // }                      
          }
       }
     }
