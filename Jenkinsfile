@@ -137,8 +137,8 @@ pipeline {
                         //   def dockerrm = 'docker container rm -f Devsecops'
                         //   def dockerimg = 'docker rmi nani123456789/$JOB_NAME'
                            sshagent(['dockerserver']) {
-                           sh 'ssh -o StrictHostKeyChecking=no root@192.168.80.140 sudo docker pull nani123456789/pipeline'
-                           sh 'ssh -o StrictHostKeyChecking=no root@192.168.80.140 sudo docker run -p 8080:8080 -d nani123456789/$JOB_NAME:latest'
+                           sh 'ssh -o StrictHostKeyChecking=no yash@192.168.80.140 sudo docker pull nani123456789/pipeline'
+                           sh 'ssh -o StrictHostKeyChecking=no yash@192.168.80.140 sudo docker run -p 8080:8080 -d nani123456789/$JOB_NAME:latest'
                         //   sh "ssh -o StrictHostKeyChecking=no yash@192.168.80.137 ${dockerrm} || true"
                         //   sh "ssh -o StrictHostKeyChecking=no yash@192.168.80.137 ${dockerimg} || true"
                         //   sh "ssh -o StrictHostKeyChecking=no yash@192.168.80.140 sudo docker pull nani123456789/pipeline"
