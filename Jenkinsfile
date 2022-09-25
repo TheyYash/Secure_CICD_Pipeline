@@ -132,9 +132,9 @@ pipeline {
                   steps {  
                         script {
          //                  sh 'docker run -p 8000:8000 -d nani123456789/$JOB_NAME:latest'
-                           def dockerrun = 'docker run -p 8080:8080 -d nani123456789/$JOB_NAME:latest'
-                           def dockerrm = 'docker container rm -f Devsecops'
-                           def dockerimg = 'docker rmi nani123456789/$JOB_NAME'
+                           def dockerrun = 'sudo docker run -p 8080:8080 -d nani123456789/$JOB_NAME:latest'
+                        //   def dockerrm = 'docker container rm -f Devsecops'
+                        //   def dockerimg = 'docker rmi nani123456789/$JOB_NAME'
                           sshagent(['docker_Server']) {                     
                         //   sh "ssh -o StrictHostKeyChecking=no yash@192.168.80.137 ${dockerrm} || true"
                         //   sh "ssh -o StrictHostKeyChecking=no yash@192.168.80.137 ${dockerimg} || true"
