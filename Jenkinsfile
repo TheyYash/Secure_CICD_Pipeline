@@ -86,18 +86,19 @@ pipeline {
                 }
             }
         }
-          // stage('SonarQube Analysis') {
-          //   steps {
+           stage('SonarQube Analysis') {
+             steps {
                  // sh 'docker container stop sonarqube || true'
                  // sh 'docker container rm -f sonarqube || true'
                  // sh 'docker run -p 9000:9000 -d --name sonarqube owasp/sonarqube'
-           //      withSonarQubeEnv('sonar') {
-           //          sh 'mvn sonar:sonar'
+                 sshagent(['dockerserver']) {
+                 withSonarQubeEnv('sonar') {
+                     sh 'ssh -o StrictHostKeyChecking=no yash@192.168.80.140 mvn sonar:sonar'
                  //    sh 'cat /var/lib/jenkins/workspace/sonarqube_report.txt'
-                                              
-      //   }
-     // }
-   // }
+                 }                      
+         }
+      }
+    }
       //  stage('SonarQube Analysis report') {
         //    steps {
         //            sh 'mvn sonar:sonar Dsonar.projectKey=sonarqube -Dsonar.host.url=http://192.168.80.128:9000 -Dsonar.login=99eff6549cfb87f043869711c08471036fbbcc21'
